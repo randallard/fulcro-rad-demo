@@ -157,7 +157,7 @@
                            :com.wsscode.pathom.core/parent-query [::account/name ::account/active?]
                            ::rad.sql/id-attribute                account/id
                            ::rad.sql/databases                   {:production db}} {::account/id #uuid "ffffffff-ffff-ffff-ffff-000000000001"})
-    #_(jdbc/query db ["SELECT * FROM account"])
+    (jdbc/query db ["SELECT * FROM account"])
     #_(jdbc/execute! db [(rad.sql/automatic-schema :production account/attributes)]))
 
   (rad.sql/generate-resolvers account/attributes :production)

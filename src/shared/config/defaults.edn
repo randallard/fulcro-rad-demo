@@ -27,24 +27,39 @@
          ;;                              :connection-pool :xtdb.jdbc/connection-pool}
          }}
  :com.fulcrologic.rad.database-adapters.sql/databases
- ;; Sample for PostgreSQL
+ ;; Sample for MySQL
  #_{:main {:flyway/migrate?          false
+         :flyway/migrations        ["classpath:config/sql_migrations"]
+         :hikaricp/config          {"dataSourceClassName"     "com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+                                    "dataSource.serverName"   "localhost"
+                                    "dataSource.portNumber" "3306"
+                                    "dataSource.user"         "root"
+                                    "dataSource.password"         "password2"
+                                    "dataSource.databaseName" "testdb"}
+         :sql/vendor               :postgresql
+         :sql/auto-create-missing? true
+         :sql/schema               :production}}
+ ;; Sample for PostgreSQL
+ {:main {:flyway/migrate?          false
            :flyway/migrations        ["classpath:config/sql_migrations"]
            :hikaricp/config          {"dataSourceClassName"     "org.postgresql.ds.PGSimpleDataSource"
                                       "dataSource.serverName"   "localhost"
                                       "dataSource.user"         "postgres"
+                                      "dataSource.password"         "pass123"
                                       "dataSource.databaseName" "demo"}
            :sql/vendor               :postgresql
            :sql/auto-create-missing? true
            :sql/schema               :production}}
- {:main {:flyway/migrate?          false
+ #_{:main {:flyway/migrate?          false
          :flyway/migrations        ["classpath:config/sql_migrations"]
-         :hikaricp/config          {"dataSourceClassName" "org.h2.jdbcx.JdbcDataSource"
-                                    "dataSource.user"     "sa"
-                                    "dataSource.password" "sa"
-                                    "dataSource.URL"      "jdbc:h2:mem:dev-db;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH"}
-         :sql/vendor               :h2
-         :sql/auto-create-missing? true
+         :hikaricp/config          {"dataSourceClassName" "com.informix.jdbcx.IfxDataSource"
+                                    "dataSource.user"     "informix"
+                                    "dataSource.password" "in4mix"
+                                    "dataSource.jdbcUrl" "jdbc:informix-sqli://localhost:9088/sysmaster:INFORMIXSERVER=informix"
+                                    "dataSource.IfxIFXHOST" "localhost"
+                                    }
+         :sql/vendor               :ifx
+         :sql/auto-create-missing? false
          :sql/schema               :production}}
 
  :ring.middleware/defaults-config                  {:params    {:keywordize true

@@ -1,6 +1,6 @@
 {
   "name": "fulcro-rad",
-  "version": "1.0.0",
+  "version": "1.6.0",
   "description": "= Fulcro Rapid Application Development Tools",
   "main": "index.js",
   "scripts": {},
@@ -25,6 +25,6 @@
     "victory": "^34.3.6"
   },
   "devDependencies": {
-    "shadow-cljs": "2.20.16"
+    "shadow-cljs": "2.27.1"
   }
 }
