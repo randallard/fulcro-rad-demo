@@ -40,7 +40,7 @@
          :sql/auto-create-missing? true
          :sql/schema               :production}}
  ;; Sample for PostgreSQL
- {:main {:flyway/migrate?          false
+ #_{:main {:flyway/migrate?          false
            :flyway/migrations        ["classpath:config/sql_migrations"]
            :hikaricp/config          {"dataSourceClassName"     "org.postgresql.ds.PGSimpleDataSource"
                                       "dataSource.serverName"   "localhost"
@@ -50,13 +50,17 @@
            :sql/vendor               :postgresql
            :sql/auto-create-missing? true
            :sql/schema               :production}}
- #_{:main {:flyway/migrate?          false
+
+ ;; Working ? local informix container
+ {:main {:flyway/migrate?          false
          :flyway/migrations        ["classpath:config/sql_migrations"]
          :hikaricp/config          {"dataSourceClassName" "com.informix.jdbcx.IfxDataSource"
                                     "dataSource.user"     "informix"
                                     "dataSource.password" "in4mix"
-                                    "dataSource.jdbcUrl" "jdbc:informix-sqli://localhost:9088/sysmaster:INFORMIXSERVER=informix"
                                     "dataSource.IfxIFXHOST" "localhost"
+                                    "dataSource.serverName" "informix"
+                                    "dataSource.portNumber" "9088"
+                                    "dataSource.databaseName" "demo"
                                     }
          :sql/vendor               :ifx
          :sql/auto-create-missing? false

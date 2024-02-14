@@ -21,7 +21,8 @@
     [next.jdbc :as jdbc]
     [next.jdbc.sql :as sql]
     [com.example.components.connection-pools :as pools])
-  (:import (com.zaxxer.hikari HikariDataSource)))
+  (:import (com.informix.jdbcx IfxDataSource)
+           (com.zaxxer.hikari HikariDataSource)))
 
 (set-refresh-dirs "src/main" "src/sql" "src/dev" "src/shared" "../fulcro-rad/src/main" "../fulcro-rad-sql/src/main")
 
@@ -81,6 +82,9 @@
           :name     label
           :price    price
           :category category-id}])
+(defn my-get-by-id [db]
+  (log/info "calling sql/get-by-id")
+  (boolean (sql/get-by-id db :account (new-uuid 100))))
 
 (defn seed! []
   (let [db         (get-jdbc-datasource)
@@ -89,7 +93,8 @@
         misc-id    (new-uuid 1003)
         toys-id    (new-uuid 1002)
         tools-id   (new-uuid 1000)
-        exists?    (boolean (sql/get-by-id db :account (new-uuid 100)))]
+        exists? (boolean (my-get-by-id db))
+        #_#_ exists?    (boolean (sql/get-by-id db :account (new-uuid 100)))]
     (if exists?
       (log/info "Database already seeded. Skipping")
       (do
